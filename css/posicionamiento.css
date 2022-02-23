@@ -1,0 +1,9 @@
+.SubDiv-Horizontal{
+  width: 45%;
+  float: left;
+  margin: 10px;
+
+}
+.Div-Horizontal{
+  display: flex;
+}
