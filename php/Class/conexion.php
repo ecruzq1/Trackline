@@ -19,10 +19,10 @@ class conexion{
   //Ejemplo: $objBD=new //AdaCnxBD("localhost","MiBaseDeDatos","MiNombreDeUsuario","MiContraseña");
   function __construct($nombreTabla){
     $this->nombreTabla = $nombreTabla;
-    $this->servidor="localhost";
-    $this->nombreBD="trackline";
-    $this->nombreDeUsuario="track1";
-    $this->contrasena="track1";
+    $this->servidor="mysql-edwin94.alwaysdata.net";
+    $this->nombreBD="edwin94_trackline";
+    $this->nombreDeUsuario="edwin94_tracklin";
+    $this->contrasena="ligadequito";
   }
 
 
