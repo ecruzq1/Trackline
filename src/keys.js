@@ -1,8 +1,8 @@
 module.exports={
     database:{
-        host:'localhost',
-        user:'root',
-        password:'',
-        database:'oportuno'
+        host:'mysql-oportuno.alwaysdata.net',
+        user:'oportuno_admacbi',
+        password:'Pululahua.170983',
+        database:'oportuno_acbir'
     }
 };
