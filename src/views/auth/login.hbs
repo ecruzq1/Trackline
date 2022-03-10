@@ -1,0 +1,37 @@
+<div class="container mt-5 pt-5  pb-4 pl-5 pr-5 align-middle ">
+    <br>
+    <br>
+    <div class="card mt-5 mb-5 rounded-lg" style="background-color: #123b61dc;">
+        <!-- Default form login -->
+        <form class="text-center border border-light p-5" action="/login" method="POST">
+            <img src="/logo_empresa/{{empresa.EMP_LOGO}}" class="rounded mx-auto" style="width: 400px;">
+
+            <p class="h5 mb-4 text-white">Iniciar Sesión</p>
+
+            <!-- Email -->
+            <input type="email" id="usuario_correo" name="usuario_correo" class="form-control form-control-sm mb-4"
+                placeholder="Correo" required>
+
+            <!-- Password -->
+            <input type="password" id="usuario_contrasena" name="usuario_contrasena"
+                class="form-control form-control-sm mb-4" placeholder="Contraseña" required>
+
+            <div class="d-flex justify-content-around">
+                <div>
+                    <!-- Forgot password -->
+                    <a href="/recuperar"> <span class="text-white">Olvido su contraseña?</span> </a>
+                </div>
+            </div>
+
+            <!-- Sign in button -->
+            <button class="btn btn-light-green btn-block my-4 rnd" type="submit">Sign in</button>
+
+        </form>
+        <!-- Default form login -->
+    </div>
+    <div class="container"></div>
+
+</div>
+<br>
+<br>
+<br>

@@ -1,0 +1,533 @@
+<script>
+    window.onload = function init_components() {
+        init_search_input();
+    }
+
+</script>
+
+<!-- Background image -->
+<div id="intro" class="bg-image shadow-1-strong" style="height: 100vh;">
+    <img class="w-100" style="min-height: 100%;" src="/imagenes/back_01.jpg">
+    </img>
+    <div class="mask">
+        <div class="container-fluid d-flex align-items-center justify-content-center text-center h-100">
+            <div class="container-fluid position-fixed  d-flex justify-content-end pr-0">
+                <div class="mr-1">
+                    <!-- Facebook -->
+                    <a class="circle-icon pt-2" href="https://www.facebook.com/Oportuno-102719251628296">
+                        <i class="fab fa-facebook-f fa-2x" style="color: #123b61 !important;"> </i>
+                    </a>
+                    <br>
+                    <!--Instagram-->
+                    <a class="circle-icon pt-2 mt-2" href="https://www.instagram.com/oportuno_ec/?hl=es-la">
+                        <i class="fab fa-instagram fa-2x " style="color: #123b61 !important;"> </i>
+                    </a>
+                    <br>
+                    <!--youtube-->
+                    <a class="circle-icon pt-2 mt-2" href="https://www.youtube.com/channel/UCDftkCS5GSGWno_51hGPQEA">
+                        <i class="fab fa-youtube fa-2x" style="color: #123b61 !important;"> </i>
+                    </a>
+                    <br>
+
+                    <span class="rounded-lg mdb-color text-white text-small font-italic pl-1 pr-1 mr-1">Blog</span>
+                    <br>
+                    <a class="circle-icon pt-2" href="/blog">
+                        <i class="fas fa-blog fa-lg fa-2x" style="color: #123b61 !important;"> </i>
+                    </a>
+                    <br>
+
+                    <span class="rounded-lg mdb-color text-white text-small font-italic pl-1 pr-1 mr-1">Ayuda</span>
+                    <br>
+                    <a class="circle-icon pt-2" href="#" data-toggle="modal" data-target="#modal_consulta">
+                        <i class="fas fa-question fa-lg fa-2x" style="color: #123b61 !important;"> </i>
+                    </a>
+                </div>
+
+
+            </div>
+            <div class="row pr-5">
+                <img src="/logo_empresa/secundario_logo.png" class="img-fluid pt-2" style="width: 400px;">
+                <div class="card card-op text-white ">
+                    <!-- Card content -->
+                    <div class="card-body card-body-cascade img-gradient-overlay ">
+                        <h4 class="card-title text-center ">Bienvenido a <b>ACBIR Asociacion de Corredores de Bienes Raices!</b></h4>
+                        <p class="text-center font-italic">El mejor lugar para comprar, vender o alquilar inmuebles en
+                            Ecuador</p>
+                        <hr class="hr">
+                        <form method="POST" action="/busqueda">
+                            <div class="row white rounded-lg text-body pb-3 ml-3 mr-3 text-small">
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-3 mt-4">
+                                            <p class="custom-control-inline">Comprar</p>
+                                            <label class="switch">
+                                                <input type="checkbox" class="form-control" id="transaccion"
+                                                    name="transaccion">
+                                                <span class="slider round"></span>
+                                            </label>
+                                            <p class="custom-control-inline">Alquilar</p>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="md-form input-with-pre-icon">
+                                                <i class="fas fa-map-marker-alt input-prefix"></i>
+                                                <input type="search" class="form-control" id="search_input"
+                                                    name="search_input" placeholder="Parroquia, Cantones, Provincia ..."
+                                                    required />
+                                                <label for="search_input indigo-lighter-hove">Lugar</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <!-- Material input -->
+                                            <div class="md-form input-with-pre-icon">
+                                                <i class="fas fa-dollar-sign input-prefix"></i>
+                                                <input type="number" id="costo_min" name="costo_min"
+                                                    class="form-control" min="0">
+                                                <label for="costo_min">Min</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <!-- Material input -->
+                                            <div class="md-form input-with-pre-icon">
+                                                <i class="fas fa-dollar-sign input-prefix"></i>
+                                                <input type="number" id="costo_max" name="costo_max"
+                                                    class="form-control" min="1">
+                                                <label for="costo_max">Max</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            {{#each tipos_inmuebles}}
+                                            <!--Default inline-->
+                                            <div class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="checkbox" class="custom-control-input form-control"
+                                                    id="checks{{TIPINM_ID}}" name="checks" value="{{TIPINM_ID}}">
+                                                <label class="custom-control-label"
+                                                    for="checks{{TIPINM_ID}}">{{TIPINM_DESCRIPCION}}</label>
+                                            </div>
+                                            {{/each}}
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" class="form-control" name="street_number" id="street_number">
+                                <input type="hidden" class="form-control" name="route" id="route">
+                                <input type="hidden" class="form-control" name="locality" id="locality">
+                                <input type="hidden" class="form-control" name="administrative_area_level_1"
+                                    id="administrative_area_level_1">
+                                <input type="hidden" class="form-control" name="country" id="country">
+                                <input type="hidden" class="form-control" name="postal_code" id="postal_code">
+                                <input type="hidden" class="form-control" name="latitude" id="latitude">
+                                <input type="hidden" class="form-control" name="longitude" id="longitude">
+                                <input type="hidden" class="form-control" name="administrative_area_level_2"
+                                    id="administrative_area_level_2">
+                                <input type="hidden" class="form-control" name="sublocality_level_1"
+                                    id="sublocality_level_1">
+                                <input type="hidden" class="form-control" name="sublocality" id="sublocality">
+
+                                <div class="col-md-2 mt-4 text-center">
+                                    <button type="button submit" class="btn btn-light-green rnd btn-sm"><i
+                                            class="fas fa-search"></i>
+                                        Buscar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Background image -->
+<div class=" container-fluid ">
+    <!-- Card Narrower -->
+
+
+    <!--Main layout-->
+    <main>
+
+        <div class="container-fluid pr-5 ">
+            <!--Carousel Wrapper-->
+            <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+                <h3 class="mt-5 h4 text-center font-weight-normal">Nuestros Anuncios Principales</h3>
+                <!--Controls-->
+                <div class="text-center mb-3">
+                    <a class="btn btn-sm btn-light-green rnd" href="#multi-item-example" data-slide="prev"><i
+                            class="fas fa-chevron-left"></i></a>
+                    <a class="btn btn-sm btn-light-green rnd" href="#multi-item-example" data-slide="next"><i
+                            class="fas fa-chevron-right"></i></a>
+                </div>
+                <!--/.Controls-->
+
+
+                <!--Slides-->
+                <div class="carousel-inner" role="listbox">
+                    {{#each paginas}}
+                    <!--First slide-->
+                    <div class="carousel-item  {{#ifEquals NUM 0}} active {{/ifEquals}} ">
+                        <div class="row">
+                            {{#each ANUNCIOS}}
+                            <div class="col-sm-4 pb-4" style="float:left">
+                                <div class="card border">
+                                    <div id="intro" class="bg-image overlay zoom">
+                                        {{#each IMAGES}}
+                                        {{#ifEquals POS 0}}
+                                        <img class="img-fluid mx-auto d-block" src="/anuncio_images/{{../IMG_NOMBRE}}"
+                                            style="height: 300px">
+                                        {{/ifEquals}}
+                                        {{/each}}
+                                        <a href="/anuncio/{{ANUN_ID}}">
+                                            <div class="mask">
+                                                <div class="container">
+                                                    <div class="row ">
+                                                        <div class="col rounded-lg"
+                                                            style="background:  #123b61!important ;">
+                                                            <span class="font-weight-normal text-white text-center">USD
+                                                                {{ANUN_PRECIO}}</span>
+                                                        </div>
+                                                        <div class="col"></div>
+                                                        <div class="col"></div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <span class="font-weight-bolder">{{ANUN_TITULO}}</span>
+                                        <div class="d-flex justify-content-between pl-2 pr-2 pb-1 text-small">
+                                            <span class="font-weight-bolder">
+                                                {{ANUN_TAMANO_TOTAL}} (m&sup2)
+                                            </span>
+                                            <span class="font-weight-bolder">
+                                                <i class="blue-grey-text fas fa-bed"></i>
+                                                {{ANUN_HABITACIONES}}
+                                            </span>
+                                            <span class="font-weight-bolder">
+                                                <i class="blue-grey-text fas fa-bath"></i>
+                                                {{ANUN_BANOS}}
+                                            </span>
+                                            <span class="font-weight-bolder">
+                                                <i class="blue-grey-text fas fa-car"></i>
+                                                {{ANUN_ESTACIONAMIENTO}}
+                                            </span>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <span class="font-weight-light text-small"><i
+                                                    class="deep-orange-text fas fa-map-marker-alt"></i>
+                                                {{ANUN_DIRECCION}}
+                                            </span>
+                                        </div>
+                                        <div class="float-right"><a href="/anuncio/{{ANUN_ID}}" type="button"
+                                                class="btn btn-light-green btn-sm rnd">Ver</a></div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                    {{/each}}
+                    <!--/.First slide-->
+
+                </div>
+                <!--/.Slides-->
+
+            </div>
+            <!--/.Carousel Wrapper-->
+            <div class="container d-flex justify-content-center">
+                <a type="button" href="/allProyects" class="btn rnd btn-light-green btn-sm">Ver más
+                    Proyectos</a>
+            </div>
+        </div>
+
+
+
+        <div class="container text-small">
+            <h3 class="m-5 h4 font-weight-normal text-center">Empiece a publicar sus Imuebles fácilmente</h3>
+            <h6 class="m-5 text-center">Cree su perfil acorde a sus necesidades y publique sus imuebles de forma facil y
+                rápida</h6>
+            <!--Grid row-->
+            <div class="row  wow fadeIn">
+                <!--Grid column-->
+                <div class="col-md-4 mb-4 pr-5">
+                    <!--Card-->
+                    <div class="card border">
+                        <!--Card content-->
+                        <div class="card-body">
+                            <div class="text-center">
+                                <i class="mdb-color text-white rounded-circle p-3 mb-1 fas fa-home fa-4x"></i>
+                                <h4 class="card-title pricing-card-title mb-4">Propietario</h4>
+                            </div>
+                            <ol class="list-unstyled m-4">
+
+                                <hr>
+                                <li class="justify"><i class="fas fa-check green-text mr-2"></i>Reciba toda la
+                                    informacion de los
+                                    interesados en su anuncio
+                                </li>
+                                <hr>
+                                <li class="justify"><i class="fas fa-check green-text mr-2"></i>Gestione su anuncio en
+                                    su panel privado
+                                </li>
+                                <hr>
+                                <li class="justify"><i class="fas fa-check green-text mr-2"></i>Contáctese con nosotros
+                                    para promocionar
+                                    su anuncio
+                                </li>
+                            </ol>
+                            <hr>
+                            <br>
+                            <br>
+                            <a type="button" href="/addPropietario"
+                                class="btn btn-sm rnd btn-block  btn-light-green">Crear
+                                perfil de
+                                Propietario</a>
+                        </div>
+                    </div>
+                    <!--/.Card-->
+                </div>
+                <!--Grid column-->
+                <!--Grid column-->
+                <div class="col-md-4 mb-4 pr-5">
+                    <!--Card-->
+                    <div class="card border">
+                        <!--Card content-->
+                        <div class="card-body">
+                            <div class="text-center">
+                                <i class="mdb-color text-white rounded-circle p-3 mb-1 fas fa-briefcase fa-4x"></i>
+                                <h4 class="card-title pricing-card-title mb-4">Agente</h4>
+                            </div>
+                            <ol class="list-unstyled m-4">
+                                <li class="justify"> <i class="fas fa-check green-text mr-2"></i>Publique todos los
+                                    anuncios que
+                                    promociona
+                                </li>
+                                <hr>
+                                <li class="justify"><i class="fas fa-check green-text mr-2"></i>Reciba toda la
+                                    informacion de los
+                                    interesados en sus anuncios
+                                </li>
+                                <hr>
+                                <li class="justify"><i class="fas fa-check green-text mr-2"></i>Gestione su anuncios en
+                                    su panel privado
+                                </li>
+                                <hr>
+                                <li class="justify"><i class="fas fa-check green-text mr-2"></i>Contáctese con nosotros
+                                    para promocionar
+                                    sus anuncios
+                                </li>
+                            </ol>
+                            <hr>
+                            <a type="button" href="/addAgente" class="btn btn-sm rnd btn-block  btn-light-green">Crear
+                                perfil
+                                de
+                                Agente</a>
+                        </div>
+                    </div>
+                    <!--/.Card-->
+                </div>
+                <!--Grid column-->
+                <!--Grid column-->
+                <div class="col-md-4 mb-4 pr-5">
+                    <!--Card-->
+                    <div class="card border">
+                        <!--Card content-->
+                        <div class="card-body">
+                            <div class="text-center">
+                                <i class="mdb-color darken-1 text-white rounded-circle p-3 mb-1 fas fa-city fa-4x"></i>
+                                <h4 class="card-title pricing-card-title mb-4">Inmobiliaria/Constructora</h4>
+                            </div>
+                            <ol class="list-unstyled m-4">
+                                <li class="justify"> <i class="fas fa-check green-text mr-2"></i>Publique anuncios de
+                                    sus proyectos con
+                                    su propio logo
+                                </li>
+                                <hr>
+                                <li class="justify"><i class="fas fa-check green-text mr-2"></i>Reciba toda la
+                                    informacion de los
+                                    interesados en sus anuncios
+                                </li>
+                                <hr>
+                                <li class="justify"><i class="fas fa-check green-text mr-2"></i>Gestione sus anuncios en
+                                    su panel
+                                    privado
+                                </li>
+                                <hr>
+                                <li class="justify"><i class="fas fa-check green-text mr-2"></i>Contáctese con nosotros
+                                    para promocionar
+                                    sus anuncios
+                                </li>
+                            </ol>
+
+                            <a type="button" href="/addInmo" class="btn btn-sm rnd btn-block  btn-light-green">Crear
+                                perfil de
+                                Inmobiliaria/Constructora</a>
+                        </div>
+                    </div>
+                    <!--/.Card-->
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+        </div>
+        <div class="container">
+            <div class="card mt-5 mb-5 rounded-lg mr-4" style="background-color: #123b61dc;">
+                <!-- Default form login -->
+                <div class="row">
+                    <div class="col-sm-3 vertical-center d-flex justify-content-end ">
+                        <h1 class="h1 mb-4 text-white font-italic">Servicio</h1>
+                    </div>
+                    <div class="col-sm-3 vertical-center ">
+                        <img src="/logo_empresa/{{empresa.EMP_LOGO}}" style="width: 200px;">
+                    </div>
+                    <div class="col-sm-6">
+                        <br>
+                        <ol class="list-unstyled m-4">
+                            <li class="justify text-white font-italic"><i class="fas fa-question green-text"></i>
+                                Esta buscando alguna característica en particular?
+                            </li>
+                            <li class="justify text-white font-italic"><i class="fas fa-question green-text"></i>
+                                ¿No encuentra lo que necesita?
+                            </li>
+                            <li class="justify text-white font-italic"><i
+                                    class="fas fa-check green-text mr-2 "></i>Nosotros le
+                                ayudamos a buscar su inmueble
+                            </li>
+                            <li class="justify text-white font-italic"> <i class="fas fa-check green-text"></i>
+                                Brindamos asesoria especializada
+                            </li>
+                            <li class="justify text-white font-italic"><i class="fas fa-minus green-text"></i>
+                                Envíenos sus requerimientos y estaremos gustosos de atenderle
+                            </li>
+                        </ol>
+                        <center>
+                            <button class="btn btn-light-green my-4 rnd" data-toggle="modal"
+                                data-target="#modal_consulta">Ayuda</button>
+
+                        </center>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </main>
+    <!--Main layout-->
+
+
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal_consulta" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header mdb-color darken-3">
+                <h6 class="modal-title text-white h6"><i class="fas fa-question light-green-text pr-2"></i>¿Cómo te
+                    podemos ayudar?</h6>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="/addConsulta">
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6 text-small">
+                            <div class="text-center">
+                                <div class="pt-3"
+                                    style="background-color: #8bc34a !important;height: 50px;width: 50px;border-radius: 50%;display: inline-block;">
+                                    <i class="fas fa-question fa-lg fa-2x" style="color: #ffffff !important;"> </i>
+                                </div>
+                            </div>
+                            <div class="row m-3">
+                                <div class="col-sm-12 indent"> <i class="fas fa-check green-text mr-2"></i>
+                                    ¿Tiene inconvenientes al registrarse?
+                                </div>
+                                <br>
+                                <div class="col-sm-12 indent"> <i class="fas fa-check green-text mr-2"></i>
+                                    ¿Existe algún error en el sistema?
+                                </div>
+                                <br>
+                                <div class="col-sm-12 indent"> <i class="fas fa-check green-text mr-2 "></i>¿Requiere
+                                    atención personalizada para la venta de su propiedad?
+                                </div>
+                                <br>
+                                <div class="col-sm-12 indent"> <i class="fas fa-check green-text mr-2"></i>
+                                    ¿Posee interés en ser parte de la plataforma ACBIR?
+                                </div>
+                                <br>
+                                <div class="col-sm-12 indent"> <i class="fas fa-check green-text mr-2"></i>
+                                    ¿Tiene sugerencias que aportar para mejorar el servicio?
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="md-form md-outline form-sm">
+                                <i class="fas fa-user prefix grey-text"></i>
+                                <input type="text" id="ANMSG_NOMBRE" name="ANMSG_NOMBRE"
+                                    class="form-control form-control-sm" required>
+                                <label for="ANMSG_NOMBRE">Nombre</label>
+                            </div>
+
+                            <div class="md-form md-outline form-sm">
+                                <i class="fas fa-envelope prefix grey-text"></i>
+                                <input type="email" id="ANMSG_CORREO" name="ANMSG_CORREO"
+                                    class="form-control form-control-sm" required>
+                                <label for="ANMSG_CORREO">Correo</label>
+                            </div>
+
+                            <div class="md-form md-outline form-sm">
+                                <i class="fas fa-phone prefix grey-text"></i>
+                                <input type="tel" id="ANMSG_TELEFONO" name="ANMSG_TELEFONO"
+                                    class="form-control form-control-sm" required pattern="[0-9]{7,10}"
+                                    title="Solo números telefónicos">
+                                <label for="ANMSG_TELEFONO">Teléfono</label>
+                            </div>
+
+                            <div class="md-form md-outline form-sm">
+                                <i class="fas fa-pencil-alt prefix grey-text"></i>
+                                <textarea id="ANMSG_MENSAJE" name="ANMSG_MENSAJE"
+                                    class="md-textarea form-control form-control-sm" rows="5" required></textarea>
+                                <label for="ANMSG_MENSAJE">Mensaje</label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <input type="hidden" class="form-control" name="ANUN_ID" value="{{anuncio.ANUN_ID}}" required>
+                <input type="hidden" class="form-control" name="ANMSG_ASUNTO" value="CONSULTAS" required>
+                <!-- Default unchecked -->
+                <div class="custom-control custom-checkbox ml-3">
+                    <input type="checkbox" class="custom-control-input" id="tycCheck5" required>
+                    <label class="custom-control-label text-small" for="tycCheck5">Acepta los <a
+                            href="/terminosYcondiciones" target="_blank">Términos y Condiciones</a></label>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button submit" class="btn btn-sm btn-light-green rnd">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modal_anuncio" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background-color: transparent !important;">
+            <a class="d-flex justify-content-end pb-1" href="#" data-toggle="modal" data-target="#modal_anuncio">
+                <i class="fas fa-times-circle fa-lg fa-2x" style="color: #f31313 !important; "> </i>
+            </a>
+            <img src="/promos/{{empresa.EMP_PROMO}}" class="img-fluid pt-2">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,191 @@
+<div class="container">
+    <div class="sidebar rounded-lg">
+        <div class="header  elegant-color p-1">
+            <h5 class="h5 text-white text-center">Panel Administracion</h5>
+        </div>
+        <div class="list-group list-group-flush pl-2 pr-2 pt-5 pb-5">
+            <a href="/adminPanel" class="list-group-item list-group-item-action waves-effect ">
+                <i class="fas fa-home mr-3"></i>Inicio
+            </a>
+            {{#ifEquals usuario.ADM_TIPO "PRINCIPAL"}}
+            <a href="/administradores" class="list-group-item list-group-item-action waves-effect ">
+                <i class="fas fa-users-cog mr-3"></i>Administradores</a>
+            <a href="/componentes" class="list-group-item list-group-item-action waves-effect ">
+                <i class="fas fa-plus-circle mr-3"></i>Administar Componentes
+            </a>
+            {{/ifEquals}}
+            <a href="/adminblog" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-blog mr-3"></i>Blog
+            </a>
+            <a href="/adminAnuncios" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-briefcase mr-3"></i>Administrar Anuncios
+            </a>
+            <a href="/adminUsuarios" class="list-group-item list-group-item-action waves-effect ">
+                <i class="fas fa-users mr-3"></i>Administrar Usuarios</a>
+            <a href="/adminMensajes" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-headset mr-3"></i>Mensajes Usuarios</a>
+            <a href="/llavesEnMano" class="list-group-item list-group-item-action waves-effect ">
+                <i class="far fa-handshake mr-3"></i>Asesoria y Consultas</a>
+            <a href="/denuncias" class="list-group-item list-group-item-action waves-effect active">
+                <i class="fas fa-exclamation-triangle mr-3"></i>Denuncias</a>
+            <a href="/adminCuenta" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-user mr-3"></i>Mi Cuenta</a>
+            <a href="/logout" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-sign-out-alt mr-3"></i>Cerrar Sesión</a>
+        </div>
+    </div>
+    <div class="content-ls white rounded-lg mb-5 pl-3 pr-3 border">
+        <div class="header pt-5">
+            <h2 class="font-weight-normal font-italic text-center">Mensajes</h2>
+        </div>
+        <h5 class="font-weight-normal font-italic pl-2 pr-2 text-center">Mire los mensajes acerca de las inquietudes de
+            los clientes</h5>
+        <table id="example" class="hover">
+            <thead>
+                <tr>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each denuncias}}
+                <tr>
+                    <td>
+                        <div class="container border rounded  p-3">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="font-weight-bolder  ">Auncio:</h6>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p>{{ANUN_TITULO}}</p>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h6 class="font-weight-bolder  ">Anunciante:</h6>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p>{{USU_NOMBRE}} {{USU_APELLIDO}}</p>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h6 class="font-weight-bolder  ">Anunciante correo:</h6>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p>{{USU_CORREO}}</p>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h6 class="font-weight-bolder  ">Anunciante Teléfono:</h6>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p>{{USU_TELEFONO}}</p>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h6 class="font-weight-bolder  ">Denuncia:</h6>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p>{{DENUN_TIPO}}</p>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h6 class="font-weight-bolder  ">Mensaje:</h6>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p> {{DENUN_DESC}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <a href="/anuncio/{{ANUN_ID}}" class="btn btn-sm btn-blue-grey btn-block rnd"
+                                        type="button" target="_blank"><i class="fas fa-envelope pr-3"></i>Ver
+                                        Anuncio</a>
+                                    <br>
+                                    <br>
+                                    <a href="https://api.whatsapp.com/send?phone=593{{USU_TELEFONO}}"
+                                        class="btn btn-sm btn-success  btn-block rnd" type="button"><i
+                                            class="fab fa-whatsapp pr-3"></i>Contactar Anunciante</a>
+                                    <br>
+                                    <br>
+
+                                    <button type="button" class="btn btn-sm btn-warning btn-block rnd" type="button"
+                                        data-toggle="modal" data-target="#eliminarModal{{DENUN_ID}}"><i
+                                            class="fas fa-trash pr-3"></i>Eliminar Denuncia</button>
+                                    <br>
+                                    <br>
+                                    <button type="button" class="btn btn-sm btn-danger btn-block rnd" type="button"
+                                        data-toggle="modal" data-target="#eliminarModalAdmin{{ANUN_ID}}"><i
+                                            class="fas fa-trash pr-3"></i>Eliminar Anuncio</button>
+                                </div>
+                                <!-- Central Modal Small -->
+                                <div class="modal fade" id="eliminarModal{{DENUN_ID}}" tabindex="-1" role="dialog"
+                                    aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <!-- Change class.modal-sm to change the size of the modal -->
+                                    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                                        <form method="POST" action="/eliminarDenuncia">
+                                            <div class="modal-content">
+                                                <div class="modal-header danger-color">
+                                                    <h4 class="modal-title text-white ">Eliminar Denuncia</h4>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Esta seguro de eliminar esta denuncia...?</p>
+                                                    <p>Si elimina esta denuncia no quedara constancia alguna de esta
+                                                        denuncia, esta acción es irreversible</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light btn-sm"
+                                                        data-dismiss="modal">Cancelar</button>
+                                                    <input type="hidden" class="form-control" name="DENUN_ID"
+                                                        value="{{DENUN_ID}}">
+                                                    <button type="button submit"
+                                                        class="btn btn-danger btn-sm">Borrar</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- Central Modal Small -->
+                                <!-- Central Modal Small -->
+                                <div class="modal fade" id="eliminarModalAdmin{{ANUN_ID}}" tabindex="-1" role="dialog"
+                                    aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <!-- Change class.modal-sm to change the size of the modal -->
+                                    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                                        <form method="POST" action="/eliminarAnuncioAdmin">
+                                            <div class="modal-content">
+                                                <div class="modal-header danger-color">
+                                                    <h4 class="modal-title text-white ">Eliminar Anuncio</h4>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Esta seguro de eliminar el anuncio...?</p>
+                                                    <p>Si elimina el anuncio se borraran todos los datos e imagenes
+                                                        registradas, Haga
+                                                        esto solo si verifica que el anuncio viola las politicas
+                                                        establecidas y lo hace
+                                                        bajo su responsabilidad</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light btn-sm"
+                                                        data-dismiss="modal">Cancelar</button>
+                                                    <input type="hidden" class="form-control" name="ANUN_ID"
+                                                        value="{{ANUN_ID}}">
+                                                    <button type="button submit"
+                                                        class="btn btn-danger btn-sm">Borrar</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- Central Modal Small -->
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

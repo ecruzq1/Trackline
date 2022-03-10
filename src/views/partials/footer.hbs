@@ -1,0 +1,75 @@
+<!--Footer-->
+<footer class="page-footer font-small wow fadeIn text-small">
+  <!-- Footer Elements -->
+  <div class="container">
+    <!-- Grid row-->
+    <div class="row">
+      <!-- Grid column -->
+      <div class="col-md-4">
+        <h6 class="text-uppercase mt-2 mb-2 h6">Contáctenos</h6>
+        {{#each direcciones}}
+        <p>
+          <i class="fas fa-home mr-2"></i> {{DIR_DESCRIPCION}}</p>
+        {{/each}}
+        {{#each correos}}
+        <p>
+          <i class="fas fa-envelope mr-2"></i> {{CORR_DIRECCION}}</p>
+          {{/each}}
+          {{#each telefonos}}
+        <p>
+          <i class="fas fa-phone mr-2"></i>{{TEL_NUM}}</p>
+          {{/each}}
+      </div>
+      <div class="col-md-4">
+        <h6 class="text-uppercase mt-2 mb-2 h6">Nosotros</h6>
+        <ul class="list-unstyled">
+          <li>
+            <a href="/empresa">Nuestra Empresa</a>
+          </li>
+          <li>
+            <a href="/misionYvision">Misión - Visión</a>
+          </li>
+          <li>
+            <a href="/terminosYcondiciones">Términos y Condiciones</a>
+          </li>
+          {{#if usuario}}
+
+          {{else}}
+          <li>
+            <a href="/adminLogin">Administración</a>
+          </li>
+          {{/if}}
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h6 class="text-uppercase mt-2 mb-2 text-center h6">Síguenos</h6>
+        <hr>
+        <div class="text-center">
+          <!-- Facebook -->
+          <a class="fb-ic">
+            <i class="fab fa-facebook-f fa-lg blue-text mr-md-4 fa-2x"> </i>
+          </a>
+          <!--Instagram-->
+          <a class="ins-ic">
+            <i class="fab fa-instagram fa-lg pink-text mr-md-4  fa-2x"> </i>
+          </a>
+          <!--youtube-->
+          <a class="ins-ic">
+            <i class="fab fa-youtube fa-lg red-text mr-md-4  fa-2x"> </i>
+          </a>
+        </div>
+      </div>
+      <!-- Grid column -->
+    </div>
+    <!-- Grid row-->
+  </div>
+  <!-- Footer Elements -->
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-2">© 2020 Copyright:
+    <a href="http://www.hogar-ya.com/"> oportuno.com</a>
+  </div>
+  <!-- Copyright -->
+
+
+</footer>
+<!--/.Footer-->

@@ -1,0 +1,93 @@
+<div class="container">
+    <div class="sidebar rounded-lg">
+        <div class="header  elegant-color p-1">
+            <h5 class="h5 text-white text-center">Mi Panel</h5>
+        </div>
+        <div class="list-group list-group-flush pl-2 pr-2 pt-5 pb-5">
+            <a href="/panel" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-home mr-3"></i>Inicio
+            </a>
+            <a href="/addAnuncio" class="list-group-item list-group-item-action waves-effect ">
+                <i class="fas fa-plus-circle mr-3"></i>Nuevo Anuncio
+            </a>
+            <a href="/listAnuncios" class="list-group-item list-group-item-action waves-effect ">
+                <i class="fas fa-briefcase mr-3"></i>Administrar Anuncios
+            </a>
+            <a href="/listMensajes" class="list-group-item list-group-item-action waves-effect ">
+                <i class="fas fa-envelope-open mr-3"></i>Mensajes</a>
+            <a href="/contactar" class="list-group-item list-group-item-action waves-effect active">
+                <i class="fas fa-headset mr-3"></i>Contáctese con Nosotros</a>
+            <a href="/cuenta" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-user mr-3"></i>Mi Cuenta</a>
+            <a href="/logout" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-sign-out-alt mr-3"></i>Cerrar Sesión</a>
+        </div>
+    </div>
+    <div class="content-panel white rounded-lg mb-5 pl-3 pr-3 border">
+        <div class="header pt-5">
+            <h2 class="font-weight-normal font-italic text-center">Contáctese con Nosotros</h2>
+        </div>
+        <h5 class="font-weight-normal font-italic pl-2 pr-2 text-center">Contáctenos para poder realizar cualquier
+            consulta, destacar los anuncios de sus inmuebles, sugerencias y mucho más!</h5>
+        <div class="container pb-5">
+            <div class="row border rounded-lg mt-5 pl-2 pr-2 mb-5 pb-2">
+
+                <div class="col-sm-12 text-small">
+                    <form method="POST" action="/newUsuarioMensaje">
+                        <div class="md-form input-group">
+                            <div class="input-group-prepend pr-2">
+                                <p class=" md-addon">Asunto </p>
+                            </div>
+                            <select class="browser-default custom-select form-control text-small" name="PREG_ID" required>
+                                <option value="" selected>Seleccione el asunto</option>
+                                {{#each preguntas}}
+                                <option value="{{PREG_ID}}">{{PREG_DESCRIPCION}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="md-form input-group">
+                            <div class="input-group-prepend">
+                                <p class=" md-addon">Mensaje</p>
+                            </div>
+                            <textarea class="md-textarea form-control" rows="5" name="USUMSG_MENSAJE"
+                                required></textarea>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="button submit" class="btn btn-light-green btn-sm rnd">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="row border rounded-lg pl-2 text-small">
+                <div class="col-sm-12">
+                    <h5>Contactos</h5>
+                </div>
+                <div class="col-sm-3">
+                    <h6 class="font-weight-bolder  ">Teléfono:</h6>
+                </div>
+                <div class="col-sm-9">
+                    {{#each telefonos}}
+                    <ul>{{TEL_NUM}}</ul>
+                    {{/each}}
+                </div>
+                <div class="col-sm-3">
+                    <h6 class="font-weight-bolder  ">Correo:</h6>
+                </div>
+                <div class="col-sm-9">
+                    {{#each correos}}
+                    <ul>{{CORR_DIRECCION}}</ul>
+                    {{/each}}
+                </div>
+                 <div class="col-sm-3">
+                    <h6 class="font-weight-bolder  ">Dirección:</h6>
+                </div>
+                <div class="col-sm-9">
+                    {{#each direcciones}}
+                    <ul>{{DIR_DESCRIPCION}}</ul>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

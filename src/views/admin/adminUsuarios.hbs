@@ -1,0 +1,213 @@
+<div class="container">
+    <div class="sidebar rounded-lg">
+        <div class="header  elegant-color p-1">
+            <h5 class="h5 text-white text-center">Panel Administracion</h5>
+        </div>
+        <div class="list-group list-group-flush pl-2 pr-2 pt-5 pb-5">
+            <a href="/adminPanel" class="list-group-item list-group-item-action waves-effect ">
+                <i class="fas fa-home mr-3"></i>Inicio
+            </a>
+            {{#ifEquals usuario.ADM_TIPO "PRINCIPAL"}}
+            <a href="/administradores" class="list-group-item list-group-item-action waves-effect ">
+                <i class="fas fa-users-cog mr-3"></i>Administradores</a>
+            <a href="/componentes" class="list-group-item list-group-item-action waves-effect ">
+                <i class="fas fa-plus-circle mr-3"></i>Administar Componentes
+            </a>
+            {{/ifEquals}}
+            <a href="/adminblog" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-blog mr-3"></i>Blog
+            </a>
+            <a href="/adminAnuncios" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-briefcase mr-3"></i>Administrar Anuncios
+            </a>
+            <a href="/adminUsuarios" class="list-group-item list-group-item-action waves-effect active">
+                <i class="fas fa-users mr-3"></i>Administrar Usuarios</a>
+            <a href="/adminMensajes" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-headset mr-3"></i>Mensajes Usuarios</a>
+            <a href="/llavesEnMano" class="list-group-item list-group-item-action waves-effect ">
+                <i class="far fa-handshake mr-3"></i>Asesoria y Consultas</a>
+            <a href="/denuncias" class="list-group-item list-group-item-action waves-effect ">
+                <i class="fas fa-exclamation-triangle mr-3"></i>Denuncias</a>
+            <a href="/adminCuenta" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-user mr-3"></i>Mi Cuenta</a>
+            <a href="/logout" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-sign-out-alt mr-3"></i>Cerrar Sesión</a>
+        </div>
+    </div>
+    <div class="content-p2 white rounded-lg pt-3 mb-5 border">
+        <div class="header pt-5">
+            <h2 class="font-weight-normal font-italic text-center">Usuarios del Sistema</h2>
+        </div>
+        <table class="table table-bordered mt-5" id="example">
+            <thead>
+                <tr>
+                    <th>
+                        <center>Nombres</center>
+                    </th>
+                    <th>
+                        <center>Tipo</center>
+                    </th>
+                    <th>
+                        <center>Correo</center>
+                    </th>
+                    <th>
+                        <center>N° Anuncios</center>
+                    </th>
+                    <th>
+                        <center>Acción</center>
+                    </th>
+            </thead>
+            <tbody>
+                {{#each usuarios}}
+                <tr>
+                    <td>{{USU_NOMBRE}} {{USU_APELLIDO}}</td>
+                    <td>{{USU_TIPO}}</td>
+                    <td>{{USU_CORREO}}</td>
+                    <td>{{ANUNCIOS}}</td>
+                    <td>
+                        <center>
+                            <a href="/usuarioAnuncios/{{USU_ID}}" type="button"
+                                class="btn btn-blue-grey btn-sm rnd ">Anuncios</a>
+                            {{#ifEquals USU_ESTADO "ACTIVO" }}
+                            <button type="button" class="btn btn-warning btn-sm rnd" data-toggle="modal"
+                                data-target="#bloquearModal{{../USU_ID}}">Bloquear</button>
+                            {{/ifEquals}}
+                            {{#ifEquals USU_ESTADO "BLOQUEADO" }}
+                            <button type="button" class="btn btn-elegan text-dark btn-sm rnd" data-toggle="modal"
+                                data-target="#desbloquearModal{{../USU_ID}}">Desbloquear</button>
+                            {{/ifEquals}}
+                            {{#if USU_HABILITADO }}
+                            <button type="button" class="btn btn-indigo btn-sm rnd" data-toggle="modal"
+                                data-target="#deshabilitarPublicacionModal{{USU_ID}}">Dehabilitar publicación</button>
+                            {{else}}
+                            <button type="button" class="btn btn-light-green btn-sm rnd" data-toggle="modal"
+                                data-target="#habilitarPublicacionModal{{USU_ID}}">Habilitar publicación</button>
+                            {{/if}}
+                        </center>
+                    </td>
+                </tr>
+                {{#if USU_HABILITADO }}
+                <!-- Central Modal Small -->
+                <div class="modal fade" id="deshabilitarPublicacionModal{{USU_ID}}" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel" aria-hidden="true">
+                    <!-- Change class.modal-sm to change the size of the modal -->
+                    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <form method="POST" action="/deshablitarPublicacion">
+                                <div class="modal-header danger-color">
+                                    <h4 class="modal-title text-white ">Deshabilitar Publicación</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Esta seguro de deshabilitar publicación del Usuario...?</p>
+                                    <p>El usuario no podrá publicar anuncios en el sistema, esto lo realizara si ha
+                                        existido algun inconveniente con el cliente y lo realiza bajo su responsabilidad
+                                    </p>
+                                </div>
+                                <input type="hidden" name="USU_ID" class="form-control" value="{{USU_ID}}">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light btn-sm"
+                                        data-dismiss="modal">Cancelar</button>
+                                    <button type="button submit" class="btn btn-danger btn-sm">Deshabilitar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {{else}}
+                <!-- Central Modal Small -->
+                <div class="modal fade" id="habilitarPublicacionModal{{USU_ID}}" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel" aria-hidden="true">
+                    <!-- Change class.modal-sm to change the size of the modal -->
+                    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <form method="POST" action="/hablitarPublicacion">
+                                <div class="modal-header secondary-color">
+                                    <h4 class="modal-title text-white ">Habilitar Publicación</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Esta seguro de habilitar publicación del Usuario...?</p>
+                                    <p>El usuario podrá publicar anuncios en el sistema, esto lo realizara si ha
+                                        existido un trato con el cliente y lo realiza bajo su responsabilidad
+                                    </p>
+                                </div>
+                                <input type="hidden" name="USU_ID" class="form-control" value="{{USU_ID}}">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light btn-sm"
+                                        data-dismiss="modal">Cancelar</button>
+                                    <button type="button submit" class="btn btn-secondary btn-sm">Habilitar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+                <!-- Central Modal Small -->
+                <div class="modal fade" id="bloquearModal{{USU_ID}}" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel" aria-hidden="true">
+                    <!-- Change class.modal-sm to change the size of the modal -->
+                    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <form method="POST" action="/blockUser">
+                                <div class="modal-header warning-color">
+                                    <h4 class="modal-title text-white ">Bloquear Usuario</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Esta seguro de Bloquear el Usuario...?</p>
+                                    <p>Realize esta accion solo si considera que los anuncios del usuario inflinjen las
+                                        politicas establecidas y lo hara bajo su propia responsabilidad</p>
+                                </div>
+                                <input type="hidden" name="USU_ID" class="form-control" value="{{USU_ID}}">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light btn-sm"
+                                        data-dismiss="modal">Cancelar</button>
+                                    <button type="button submit" class="btn btn-warning btn-sm">Bloquear</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Central Modal Small -->
+                <!-- Central Modal Small -->
+                <div class="modal fade" id="desbloquearModal{{USU_ID}}" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel" aria-hidden="true">
+                    <!-- Change class.modal-sm to change the size of the modal -->
+                    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <form method="POST" action="/unlockUser">
+                                <div class="modal-header elegant-color">
+                                    <h4 class="modal-title text-white ">Desbloquear Usuario</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>DesbLoquear el Usuario...?</p>
+                                    <p>Realize esta accion solo si considera que los anuncios del usuario dejaran de
+                                        inflinjir las
+                                        politicas establecidas y lo hara bajo su propia responsabilidad</p>
+                                </div>
+                                <input type="hidden" name="USU_ID" class="form-control" value="{{USU_ID}}">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light btn-sm"
+                                        data-dismiss="modal">Cancelar</button>
+                                    <button type="button submit" class="btn btn-elegant btn-sm">Desbloquear</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Central Modal Small -->
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
